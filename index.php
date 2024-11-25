@@ -1,15 +1,28 @@
 <?php
 
-// Retrieve controller and action from the query parameters
-$controller = $_GET['controller'];
-$action = $_GET['action'];
+$request=parse_url(url:$_SERVER['REQUEST_URI'])['path'];
+
+// print_r(value:$request);
+//Convert the string to array
+$explode=explode(separator:'/',string:$request);
+
+
+
+$requested_paths=array_slice(array:$explode,offset:2,length:count($explode));
+
+
+
+// // Retrieve controller and action from the query parameters
+$controller = $requested_paths[0];
+$action = $requested_paths[1];
 //Dumping the controller
 
-var_dump($controller);
-$controllerFile = "./src/Controller/" . $controller . ".php";
+// var_dump($controller);
+ $controllerFile = "./src/Controller/" . $controller . ".php";
 
+// var_dump(class_exists(class:$controller));
 
-// Check if the controller file exists
+// // Check if the controller file exists
 if (file_exists($controllerFile)) {
     include $controllerFile;
 
@@ -18,7 +31,7 @@ if (file_exists($controllerFile)) {
         $about = new $controller();
 
         // Check if the action method exists
-        if (method_exists($about, $action)) {
+        if (method_exists(object_or_class:$about,method:$action)) {
             // Call the action method
             $about->$action();
         } else {
@@ -30,3 +43,6 @@ if (file_exists($controllerFile)) {
 } else {
     echo "Controller file for `$controller` does not exist.";
 }
+
+// To get all server info
+
