@@ -3,13 +3,13 @@ include './src/Router/Router.php';
 
 $router=new Router();
 
-$router->add(route:'/AboutController/index',paths:[
-   ['controller'=>'AboutController','method'=>'index']
-]);
-$router->add(route:'/ProductController/getAllProducts',paths:[
+// $router->add(route:'/AboutController/index',paths:[
+//    ['controller'=>'AboutController','method'=>'index']
+// ]);
+$router->add(route:'/products',paths:[
     ['controller'=>'ProductController','method'=>'getAllProducts']
  ]);
- $router->add(route:'/HomeController/index',paths:[
+ $router->add(route:'/home',paths:[
     ['controller'=>'HomeController','method'=>'index']
  ]);
 // $request=parse_url(url:$_SERVER['REQUEST_URI'])['path'];
