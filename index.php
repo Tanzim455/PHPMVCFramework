@@ -1,13 +1,17 @@
 <?php 
 
-// include_once 'database.php';
-include './src/Controller/ProductController.php';
 
 
-//Transferring the view
-$product=new ProductController();
+$controller=$_GET['controller'];
 
-$product->getAllProducts();
+$action=$_GET['action'];
+
+
+
+    include "./src/Controller/$controller.php";
+    $about=new $controller();
+    $about->$action();
+
 ?>
 
 
