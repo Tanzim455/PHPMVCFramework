@@ -9,6 +9,9 @@ $router->add(route:'/AboutController/index',paths:[
 $router->add(route:'/ProductController/getAllProducts',paths:[
     ['controller'=>'ProductController','method'=>'getAllProducts']
  ]);
+ $router->add(route:'/HomeController/index',paths:[
+    ['controller'=>'HomeController','method'=>'index']
+ ]);
 // $request=parse_url(url:$_SERVER['REQUEST_URI'])['path'];
 
 // print_r(value:$request);
