@@ -1,3 +1,10 @@
+<?php 
+$home_page="Home Page";
+
+
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,10 +14,6 @@
     <title>Document</title>
 </head>
 <body>
-<?php foreach($products as $product){ ?>
-        
-       <div>Title-<?php echo $product['title']; ?></div>
-       <div>Description-<?php echo $product['description']; ?></div>
-         <?php } ?>
+    <h1><?php echo $home_page;  ?></h1>
 </body>
 </html>

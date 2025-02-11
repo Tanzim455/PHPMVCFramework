@@ -1,13 +1,17 @@
-<?php 
 
-// include_once 'database.php';
-include './src/Controller/ProductController.php';
+<?php
+include './src/Router/Router.php';
 
+$router=new Router();
 
-//Transferring the view
-$product=new ProductController();
-
-$product->getAllProducts();
-?>
+$router->add(route:'/AboutController/index',paths:[
+   ['controller'=>'AboutController','method'=>'index']
+]);
+$router->add(route:'/ProductController/getAllProducts',paths:[
+    ['controller'=>'ProductController','method'=>'getAllProducts']
+ ]);
+ $router->add(route:'/HomeController/index',paths:[
+    ['controller'=>'HomeController','method'=>'index']
+ ]);
 
 

@@ -9,6 +9,7 @@ class Product {
 
     public function getProducts(): array {
         require 'src/Database/Database.php';
+     
         $database = new Database();
       
         $connect = $database->connect();
