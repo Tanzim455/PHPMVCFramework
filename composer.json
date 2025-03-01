@@ -2,7 +2,7 @@
     "name": "tanzim/phpmvc-framework",
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
+            "App\\": "app/"
             
              
         }
