@@ -11,26 +11,15 @@ class Router{
         public function get(string $method,string $path):void {
           
             
-             $this->routes_list[]=$path;
-             
-            foreach($this->routes_list as $route){
-                        
-                
-                array_push($this->routes,$route);
-            }
-                echo "<pre>";
-                
-                echo "</pre>";
-            // Get the REQUEST_URI
-            //Merge all arrays 
-            $allArrays_routes = array_merge(...$this->routes);
-            var_dump($allArrays_routes);
+      
+                 
 
+                 $mergedArray = array_merge(...[$path]);
+
+                 print_r($mergedArray);
+            // $requestUri = $_SERVER['REQUEST_URI'];
             
-            
-            $requestUri = $_SERVER['REQUEST_URI'];
-            
-            $parsedUrl = parse_url($requestUri);
+            // $parsedUrl = parse_url($requestUri);
             
             
             //Get the exact Url 
@@ -41,12 +30,12 @@ class Router{
         //    $url=explode(separator:'/',string:trim($parsedUrl['path']));
 
         //    var_dump($url);
-            $path_of_user=$parsedUrl['path'];
+            // $path_of_user=$parsedUrl['path'];
 
             
           
             //Convert string to an array
-            $explode=explode(separator:"/",string:$path_of_user);
+            // $explode=explode(separator:"/",string:$path_of_user);
 
             //    var_dump($explode);
 
