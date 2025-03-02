@@ -14,9 +14,14 @@ class Router{
       
                  
 
-                 $mergedArray = array_merge(...[$path]);
+            $this->routes = array_merge($this->routes, [$path]);
 
-                 print_r($mergedArray);
+            // Output the updated array
+            var_dump($this->routes);
+
+            foreach($this->routes as $index=>$value){
+                var_dump($index);
+            }
             // $requestUri = $_SERVER['REQUEST_URI'];
             
             // $parsedUrl = parse_url($requestUri);
