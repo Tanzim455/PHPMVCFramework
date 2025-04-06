@@ -1,51 +1,25 @@
 <?php 
 declare (strict_types=1);
 namespace App;
-class Router{
-    private $routes_list=[];
-    private $routes=[];
-   
+class Router {
+    private $routes = [];
 
-    
+    // Method to add a route
+    public function get(string $path,string $method) {
+        $this->routes[] = $path;  // Add the path to the $routes array
 
-        public function get(string $method,string $path):void {
-          
-            
-      
-                 
+    //  var_dump($this->getAllRoutes());
+     var_dump($this->getLastRoute());
+     
+    }
 
-            $this->routes = array_merge($this->routes, [$path]);
+    // Method to get all stored routes
+    public function getAllRoutes() {
+        return $this->routes;
+    }
 
-            // Output the updated array
-            var_dump($this->routes);
-
-            foreach($this->routes as $index=>$value){
-                var_dump($value[3]);
-            }
-            // $requestUri = $_SERVER['REQUEST_URI'];
-            
-            // $parsedUrl = parse_url($requestUri);
-            
-            
-            //Get the exact Url 
-            
-         
-           //Find url without params
-
-        //    $url=explode(separator:'/',string:trim($parsedUrl['path']));
-
-        //    var_dump($url);
-            // $path_of_user=$parsedUrl['path'];
-
-            
-          
-            //Convert string to an array
-            // $explode=explode(separator:"/",string:$path_of_user);
-
-            //    var_dump($explode);
-
-              //All paths of methods
-
-
+    // Method to get the last invoked route
+    public function getLastRoute() {
+        return end($this->routes[]);  // Get the last route from the array
     }
 }
