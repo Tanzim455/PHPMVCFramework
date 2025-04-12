@@ -3,8 +3,8 @@
  * @var App\Router $router
  */
 
-$router->get(method:$_SERVER['REQUEST_METHOD'],path:'hello');
-$router->get(method:$_SERVER['REQUEST_METHOD'],path:'hello_two');
- $router->get(method:$_SERVER['REQUEST_METHOD'],path:'hello_three');
+$router->get(path:'hello',method:$_SERVER['REQUEST_METHOD']);
+$router->get(path:'hello_two',method:$_SERVER['REQUEST_METHOD']);
+
 
  

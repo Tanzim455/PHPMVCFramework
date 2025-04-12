@@ -1,25 +1,51 @@
 <?php 
 declare (strict_types=1);
 namespace App;
+
+
 class Router {
-    private $routes = [];
+    // Store routes (with path and method)
+    public function get(?string $path = null, ?string $method = null) {
+        static $routes = [];
 
-    // Method to add a route
-    public function get(string $path,string $method) {
-        $this->routes[] = $path;  // Add the path to the $routes array
+        // If path is provided, store the route with the method
+        if ($path !== null && $method !== null) {
+            $routes[] = ['path' => $path, 'method' => $method];
+        }
 
-    //  var_dump($this->getAllRoutes());
-     var_dump($this->getLastRoute());
-     
+        // Return all routes
+        return $routes;
     }
 
-    // Method to get all stored routes
-    public function getAllRoutes() {
-        return $this->routes;
-    }
+    // Get and check if a route exists
+    public function getRoutes() {
+        $routes = $this->get();  // Get all routes
+        
+        
+        $all_path=array_column(array:$routes,column_key:"path");
+        var_dump($all_path);
+        // $route = 'posts';
+        // $method = 'GET';  // Example: Check if GET request to 'posts' exists
 
-    // Method to get the last invoked route
-    public function getLastRoute() {
-        return end($this->routes[]);  // Get the last route from the array
+        // // Search for the route with the specific method
+        // $routeFound = false;
+        // foreach ($routes as $r) {
+        //     if ($r['path'] === $route && $r['method'] === $method) {
+        //         $routeFound = true;
+        //         break;
+        //     }
+        // }
+
+        // // Output result
+        // if ($routeFound) {
+        //     echo "Route found\n";
+        // } else {
+        //     echo "Route not found\n";
+        // }
     }
 }
+
+// Example usage:
+
+
+?>
