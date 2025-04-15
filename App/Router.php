@@ -7,7 +7,7 @@ class Router {
     // Store routes (with path and method)
     public function get(?string $path = null, ?string $method = null) {
         static $routes = [];
-
+        $methods=['GET','POST'];
         // If path is provided, store the route with the method
         if ($path !== null && $method !== null) {
             $routes[] = ['path' => $path, 'method' => $method];
@@ -17,22 +17,31 @@ class Router {
         return $routes;
     }
 
+    
+
     // Get and check if a route exists
     public function getRoutes() {
         $routes = $this->get();  // Get all routes
+        // var_dump("The routes here is");
+        // var_dump($routes);
         
-        var_dump($routes);
         echo "<pre>";
         print_r($routes);
         echo "</pre>";
-         $all_path=array_column(array:$routes,column_key:"path");
-        $user_route=parse_url(url:$_SERVER['REQUEST_URI']);
-        var_dump($user_route['path']);
-        $user_route=explode(separator:'/',string:trim($user_route['path']));
-        var_dump($user_route[2]);
+          $all_path=array_column(array:$routes,column_key:"path");
+          var_dump($all_path);
+         $user_route_path=parse_url(url:$_SERVER['REQUEST_URI']);
+         
+           $user_route=explode(separator:'/',string:trim($user_route_path['path']));
+           var_dump("User route");
+          var_dump($user_route[2]);
+          var_dump($all_path);
+        //  var_dump($user_route[2]);
 
-        if(in_array(needle:trim($user_route[2]),haystack:$user_route)){
+        if(in_array(needle:trim($user_route[2]),haystack:$all_path)){
             var_dump("It is there");
+        }else{
+            var_dump("it is not there");
         }
         // var_dump($all_path);
         // $route = 'posts';
