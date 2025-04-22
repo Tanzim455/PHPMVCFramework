@@ -4,7 +4,7 @@
  */
 
 $router->get(path:'post',view:'index.php');
-$router->get(path:'post_two');
+$router->get(path:'post_two',view:'index2.php');
 
 
 
