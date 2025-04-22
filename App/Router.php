@@ -21,7 +21,8 @@ class Router {
     
     public function getRoutes():void {
         $routes = $this->get();  // Get all routes
-       
+        var_dump($routes);
+        
           
         $projectRoot = dirname(path:__DIR__);
 
@@ -65,10 +66,14 @@ if ($viewsPath === false) {
         
 
           $user_route_path=parse_url(url:$_SERVER['REQUEST_URI']);
-         
-            $user_route=explode(separator:'/',string:trim($user_route_path['path']));
+          var_dump("User route path is");
            
-            
+           
+            $user_route=explode(separator:'/',string:trim($user_route_path['path']));
+             echo "User route is";
+            var_dump($user_route[2]);
+
+          
         
 
          
@@ -78,8 +83,9 @@ if ($viewsPath === false) {
               return $q['path']===$user_route[2];
           });
 
-          var_dump("User route method");
-        var_dump($user_route_method);
+         var_dump($user_route_method);
+
+         die();
         
           
           
