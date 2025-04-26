@@ -115,7 +115,7 @@ if ($viewsPath === false) {
               
             
           }else{
-            echo "Method does not exist";
+            echo "Route does not exist";
           }
           }
           
