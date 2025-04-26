@@ -21,13 +21,14 @@ class Router {
     
     public function getRoutes():void {
         $routes = $this->get();  // Get all routes
-        var_dump($routes);
-        
+       
+       
           
         $projectRoot = dirname(path:__DIR__);
 
 // Now build the correct path to the resources/views folder
 $viewsPath = $projectRoot . '/resources/views';
+
 
 // Optionally, use realpath to resolve any symbolic links and verify the path exists
 $viewsPath = realpath(path:$viewsPath);
@@ -43,8 +44,8 @@ if ($viewsPath === false) {
      
      //all files except index 0 and 1
      $spliced_files=array_splice(offset:2,length:count($files),array:$files);
-     var_dump("Spliced files");
-     var_dump($spliced_files);
+     
+     
     echo "</pre>";
 }
 
@@ -57,22 +58,22 @@ if ($viewsPath === false) {
          
 
          $all_routes=array_column(column_key:'path',array:$routes);
-         var_dump("All routes");
-        var_dump($all_routes);
-     
+         
+        
            
           
            
         
 
           $user_route_path=parse_url(url:$_SERVER['REQUEST_URI']);
-          var_dump("User route path is");
-           
+       
+          
            
             $user_route=explode(separator:'/',string:trim($user_route_path['path']));
-             echo "User route is";
-            var_dump($user_route[2]);
+            
 
+     
+          
           
         
 
@@ -82,24 +83,27 @@ if ($viewsPath === false) {
           $user_route_method=array_filter(array:$routes,callback:function($q) use ($user_route){
               return $q['path']===$user_route[2];
           });
+   
+         
+        
 
-         var_dump($user_route_method);
-
-         die();
         
           
           
           if(count($user_route_method)===1){
+            $user_route_method_data=reset($user_route_method);
+           
             
-            if(in_array(needle:$user_route_method[0]['current_method'],haystack:$this->allowed_methods)){
+           
+            if(in_array(needle:$user_route_method_data['current_method'],haystack:$this->allowed_methods)){
               
              
              
         if (file_exists(filename:$viewsPath)) {
           
 
-          if (isset($user_route_method[0]['view'])) { 
-              include($viewsPath . '/' . $user_route_method[0]['view']); // Proper string concatenation
+          if (isset($user_route_method_data['view'])) { 
+              include($viewsPath . '/' . $user_route_method_data['view']); // Proper string concatenation
           }
             exit();
         } else {
