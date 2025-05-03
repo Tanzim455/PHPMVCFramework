@@ -86,11 +86,14 @@ if ($viewsPath === false) {
    
          
         
+     
+
+
 
         
           
           
-          if(count($user_route_method)===1){
+          if(count($user_route_method)){
             $user_route_method_data=reset($user_route_method);
            
             
