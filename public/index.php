@@ -22,9 +22,6 @@ require_once '../routes.php';
 
 
 
-// if(in_array(needle:$method_name,haystack:$reflection_post->getMethods())){
-//     echo "Method exists";
-// }
 
 
 
