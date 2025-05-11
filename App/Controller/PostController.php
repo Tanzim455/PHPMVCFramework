@@ -9,7 +9,7 @@ class PostController{
         echo "Index class from Post Controller";
     }
     public function index_TWO(){
-        echo "Index class from Post Controller";
+        echo "Index  method from Post Controller";
     }
 }
 
