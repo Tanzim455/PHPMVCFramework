@@ -71,7 +71,7 @@ class Router {
              }else{
                 die("class does not exist");
              }
-             die();
+             
              
             //  var_dump($reflection);
              //Get methods
