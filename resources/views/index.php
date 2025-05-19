@@ -1,6 +1,6 @@
 <?php 
 
-echo "View of the route";
+echo "Index View of the route";
 
 
 ?>
