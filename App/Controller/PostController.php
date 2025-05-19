@@ -8,7 +8,7 @@ class PostController{
    use View;
 
    public function index(){
-    $this->views(view:'index.php');
+    $this->views(view:'posts/index2.php');
    }
     public function index_TWO(){
         echo "Index  method two from Post Controller";

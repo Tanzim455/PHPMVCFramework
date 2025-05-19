@@ -14,26 +14,29 @@ public function views(string $view){
     
     if (count($parts) == 2) {
         $folder = $parts[0];
+      
+    
         $file = $parts[1];
        $user_folder = dirname(__DIR__, 2); // Moves one level up
          
-       $views_path="$user_folder/resources/views";
-       $scannned_directories=scandir(directory:$views_path);
-       
-
+       $views_path="$user_folder/resources/views/$folder";
+    
+      
+          
         
            
-        if (!is_dir($user_folder)) {
+        if (!is_dir(filename:$views_path)) {
            return  $this->displayViewError("Directory '{$folder}' does not exist");
         }
 
-        $files_only =$this->getPhpFilesInDir($user_folder);
+        $files_only =$this->getPhpFilesInDir(dir:$views_path);
+         
           
         if (!in_array($file, $files_only)) {
             return $this->displayViewError("File '{$file}' not found in '{$folder}' directory");
         }
 
-        include "$user_folder/$file";
+        include "$views_path/$file";
     } elseif (count($parts) == 1) {
         $filename = trim($parts[0]);
         
