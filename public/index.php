@@ -8,7 +8,8 @@ $router=new Router();
 require_once '../routes.php';
 
 
- $router->getRoutes();
+
+
 
 
 
