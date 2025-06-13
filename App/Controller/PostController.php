@@ -11,7 +11,7 @@ class PostController{
     $this->views(view:'posts/index.php');
    }
     public function index_TWO(){
-        echo "Index  method two from Post Controller";
+        $this->views(view:'posts/index2.php');
     }
 }
 

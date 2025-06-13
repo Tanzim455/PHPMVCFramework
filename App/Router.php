@@ -1,10 +1,11 @@
 <?php 
 declare (strict_types=1);
 namespace App;
-
+use App\Traits\View;
 use ReflectionClass;
 
 class Router {
+    use View;
     // Store routes (with path and method)
      private $routes=[];
      private array $allowed_methods=["GET","POST","DELETE","PUT","PATCH"];
@@ -41,6 +42,7 @@ class Router {
     
     public function getRoutes(){
          $user_route_path=parse_url(url:$_SERVER['REQUEST_URI']);
+        
           $user_route=explode(separator:'/',string:trim($user_route_path['path']));
          
          $user_route_method=array_filter(array:$this->routes,callback:function($q) use ($user_route){
@@ -67,6 +69,9 @@ class Router {
 }
                 
               }
+        }else{
+            $this->views(view:'error/404.php');
+            
         }
         return $this->routes;      
    
