@@ -44,7 +44,7 @@ class Router {
          $user_route_path=parse_url(url:$_SERVER['REQUEST_URI']);
         
           $user_route=explode(separator:'/',string:trim($user_route_path['path']));
-         
+          
          $user_route_method=array_filter(array:$this->routes,callback:function($q) use ($user_route){
             return $q['path']===$user_route[2];
         });

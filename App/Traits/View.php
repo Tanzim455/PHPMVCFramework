@@ -8,9 +8,9 @@ trait View{
 // require_once './views/post.php';
 
 
-public function views(string $view){
+public function views(string $view,mixed $data=null){
     $parts = explode("/", $view);
-   
+    
     
     if (count($parts) == 2) {
         $folder = $parts[0];
@@ -35,7 +35,12 @@ public function views(string $view){
         if (!in_array($file, $files_only)) {
             return $this->displayViewError("File '{$file}' not found in '{$folder}' directory");
         }
-
+          if($data !== null){
+              extract($data);
+          }else {
+            $data = ['value' => $data]; // Store scalar value in an array
+            extract($data);
+        }
         include "$views_path/$file";
     } elseif (count($parts) == 1) {
         $filename = trim($parts[0]);
@@ -55,7 +60,7 @@ public function views(string $view){
         if (!in_array(needle:$filename,haystack:$files_only)) {
             return $this->displayViewError(message:"File '{$filename}' not found in views directory");
         }
-
+     
         include "$views_dir/$filename";
       
     } else {

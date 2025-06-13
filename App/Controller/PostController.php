@@ -8,7 +8,9 @@ class PostController{
    use View;
 
    public function index(){
-    $this->views(view:'posts/index.php');
+    $array=['first','second','third'];
+    $my_name="Tanzim";
+    $this->views(view:'posts/index.php',data:compact('array','my_name'));
    }
     public function index_TWO(){
         $this->views(view:'posts/index2.php');
