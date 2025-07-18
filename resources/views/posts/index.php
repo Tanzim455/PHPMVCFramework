@@ -1,7 +1,6 @@
 <?php 
 
-var_dump($array);
-echo "$my_name";
+
 
 ?>
 

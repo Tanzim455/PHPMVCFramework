@@ -7,7 +7,14 @@ trait View{
   
 // require_once './views/post.php';
 
-
+public function extractData(mixed $data): void {
+    if (is_array($data) && !empty($data)) {
+        extract($data);
+    } elseif ($data !== null) {
+        $data = ['value' => $data]; // Store scalar values properly
+        extract($data);
+    }
+}
 public function views(string $view,mixed $data=null){
     $parts = explode("/", $view);
     
@@ -35,12 +42,13 @@ public function views(string $view,mixed $data=null){
         if (!in_array($file, $files_only)) {
             return $this->displayViewError("File '{$file}' not found in '{$folder}' directory");
         }
-          if($data !== null){
-              extract($data);
-          }else {
-            $data = ['value' => $data]; // Store scalar value in an array
-            extract($data);
-        }
+        if (is_array($data) && !empty($data)) {
+        extract($data);
+    } elseif ($data !== null) {
+        $data = ['value' => $data]; // Store scalar values properly
+        extract($data);
+    }
+        // $this->extractData(data:$data);
         include "$views_path/$file";
     } elseif (count($parts) == 1) {
         $filename = trim($parts[0]);
@@ -60,7 +68,12 @@ public function views(string $view,mixed $data=null){
         if (!in_array(needle:$filename,haystack:$files_only)) {
             return $this->displayViewError(message:"File '{$filename}' not found in views directory");
         }
-     
+          if (is_array($data) && !empty($data)) {
+        extract($data);
+    } elseif ($data !== null) {
+        $data = ['value' => $data]; // Store scalar values properly
+        extract($data);
+    }
         include "$views_dir/$filename";
       
     } else {
@@ -81,4 +94,7 @@ public function displayViewError(string $message): void {
     error_log("View Error: $message");
     echo "Error loading view: $message";
 }
+
+
+
 }
