@@ -69,7 +69,7 @@ $user_route_method_data=reset($user_route_method);
              
                  
 $current_route_controller_method=trim($user_route_method_data['method']);
-var_dump($current_route_controller_method);
+
  if($reflection->hasMethod($current_route_controller_method)){
 $controller_obj->$current_route_controller_method();
  }else{
@@ -109,7 +109,7 @@ $controller_obj->$current_route_controller_method();
                          if(class_exists(class:$all_route_info['controller']))
                          {
                            $reflection=new ReflectionClass(objectOrClass:$all_route_info['controller']);
-                           var_dump($reflection);
+                          
                             $controller_obj=new $all_route_info['controller'];
                             
                          $method=trim($all_route_info['method']);
@@ -124,7 +124,7 @@ $controller_obj->$current_route_controller_method();
                                
                                 
                             }else{
-                                var_dump("Method does not exist");
+                                echo "Method does not exist";
                             }
                              
                          
@@ -132,10 +132,10 @@ $controller_obj->$current_route_controller_method();
                             echo "The class does not exist";
                          }
                         
-                        echo "</pre>";
+                        
                      
                     }else{
-                        echo "It is not there";
+                         $this->views(view:'error/404.php');
                     }
                    
                     
@@ -146,30 +146,7 @@ $controller_obj->$current_route_controller_method();
       
        
        
-if(count($user_route_method)){
-$user_route_method_data=reset($user_route_method);
- 
-             $controller_obj=new $user_route_method_data['controller'];
-              
-              if(class_exists(class:$user_route_method_data['controller'])){
-                $reflection=new ReflectionClass(objectOrClass:$controller_obj);
-             
-                 
-$current_route_controller_method=trim($user_route_method_data['method']);
-                 
-                
-//Convert array of Stdclasses to multidimenisonal array
-                if ($reflection->hasMethod(name:$current_route_controller_method)) {
-                    $controller_obj->$current_route_controller_method();
- } else {
-echo "Method does not exist!";
-}
-                
-}
-}else{
-             $this->views(view:'error/404.php');
-            
-        }
+
         return $this->routes;      
    
        

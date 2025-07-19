@@ -1,4 +1,4 @@
 <?php 
 
 
-echo "Posts from view page 2";
+echo "Posts from view page  again";
