@@ -1,7 +1,7 @@
 <?php 
 
 
-
+var_dump($my_name);
 ?>
 
 <!DOCTYPE html>
@@ -13,5 +13,7 @@
 </head>
 <body>
     <a href="/PHPMVCframework/post_two">Post Two</a>
+    <p>My name is <?= $my_name; ?></p>
+
 </body>
 </html>

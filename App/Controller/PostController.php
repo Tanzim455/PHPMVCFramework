@@ -9,6 +9,8 @@ class PostController{
 
    public function index(){
     $array=['first','second','third'];
+   
+   
     $my_name="Tanzim";
     $this->views(view:'posts/index.php',data:compact('array','my_name'));
    }
