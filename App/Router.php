@@ -94,7 +94,7 @@ $controller_obj->$current_route_controller_method();
                 
 
                  if(count($filter_with_correct_columns)===1){
-                    
+                   
                     
                     $path=explode(separator:"/",string:$filter_with_correct_columns[0]['path']);
                    

@@ -6,8 +6,9 @@
 use App\Controller\PostController;
 
 
-$router->get('post/new/create',PostController::class,'index');
-$router->get('post',PostController::class,'index_TWO');
+$router->get('post/create/new',PostController::class,'create');
+// $router->get('post/{id}',PostController::class,'show');
+// $router->get('post',PostController::class,'create');
 $router->getRoutes();
 
 

@@ -17,6 +17,9 @@ class PostController{
     public function index_TWO(){
         $this->views(view:'posts/index2.php');
     }
+    public function create(){
+        $this->views(view:'posts/create.php');
+    }
 }
 
 
