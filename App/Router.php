@@ -48,9 +48,10 @@ class Router {
           
            $user_route=explode(separator:'/',string:trim($user_route_path['path']));
              
-                   
+            
+                
                array_splice(array:$user_route,offset:0,length:2);
-
+                    var_dump($user_route);
                
                
                if(count($user_route)===1)
@@ -85,14 +86,27 @@ $controller_obj->$current_route_controller_method();
                
                 //echo the route to pre tags
                 
-              
+                 var_dump("User Route is greater than one");
+                 
                 
                 
                   $filter_with_correct_columns=array_filter(array:$this->routes,callback:function($q){
                       return str_contains(haystack:$q['path'],needle:'/');
                  });
                 
-
+               
+                  //2 conditions if it starts with { and ends with } or else not
+                   $filter_with_curly_braces=array_filter(array:$this->routes,callback:function($q){
+                      return str_contains(haystack:$q['path'],needle:'{') && str_contains(haystack:$q['path'],needle:'}');
+                 });
+                  //Remove curly brace
+                  $without_curly_brace=array_map(array:$filter_with_curly_braces,callback:function($q){
+                       return  str_replace(['{', '}'], ['', ''], $q);
+                  });
+                     echo "<pre>";
+                    print_r($without_curly_brace);
+                  echo "</pre>";
+                 die();
                  if(count($filter_with_correct_columns)===1){
                    
                     
