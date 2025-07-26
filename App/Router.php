@@ -90,11 +90,40 @@ $controller_obj->$current_route_controller_method();
                  
                 
                 
-                  $filter_with_correct_columns=array_filter(array:$this->routes,callback:function($q){
+                  $all_routes=array_filter(array:$this->routes,callback:function($q){
                       return str_contains(haystack:$q['path'],needle:'/');
                  });
-                
-               
+
+                 echo "<pre>";
+                 print_r($all_routes);
+                 echo "</pre>";
+                 die();
+
+                 //map here with all routes
+                 $mapped_routes=array_map(array:$all_routes,callback:function($q){
+                          return explode(separator:"/",string:$q['path']);
+                 });
+                 foreach ($mapped_routes as $key => $value) {
+
+                    var_dump($value);
+                    
+                    # code...
+                 }
+                   echo "<pre>";
+                //    print_r($mapped_routes);
+                   print_r($mapped_routes);
+                 
+
+                 echo "</pre>";
+                die();
+                 //dump the  filtered value
+                  //Find the routes which starts with { and ends with }
+                 
+                  echo "<pre>";
+                    print_r($filtered_routes_with_curly_braces);
+                  echo "</pre>";
+                 die();
+
                   //2 conditions if it starts with { and ends with } or else not
                    $filter_with_curly_braces=array_filter(array:$this->routes,callback:function($q){
                       return str_contains(haystack:$q['path'],needle:'{') && str_contains(haystack:$q['path'],needle:'}');
