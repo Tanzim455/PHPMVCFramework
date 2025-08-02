@@ -84,9 +84,7 @@ $controller_obj->$current_route_controller_method();
               ;
                }else if(count($user_route)>1){
                
-                //echo the route to pre tags
-                
-                 var_dump("User Route is greater than one");
+               
                  
                 
                 
@@ -94,48 +92,51 @@ $controller_obj->$current_route_controller_method();
                       return str_contains(haystack:$q['path'],needle:'/');
                  });
 
-                 echo "<pre>";
-                 print_r($all_routes);
-                 echo "</pre>";
-                 die();
+               
+                
 
                  //map here with all routes
-                 $mapped_routes=array_map(array:$all_routes,callback:function($q){
-                          return explode(separator:"/",string:$q['path']);
-                 });
-                 foreach ($mapped_routes as $key => $value) {
+                $mapped_routes = array_map(array:$all_routes,callback:function ($q) {
+    return ['path' => explode("/", $q['path']),
+           'http_method'=>$q['http_method'],
+           'controller'=>$q['controller'],
+           'method'=>$q['method']
+];
+});
 
-                    var_dump($value);
-                    
-                    # code...
-                 }
-                   echo "<pre>";
-                //    print_r($mapped_routes);
-                   print_r($mapped_routes);
                  
+                
 
-                 echo "</pre>";
-                die();
-                 //dump the  filtered value
-                  //Find the routes which starts with { and ends with }
-                 
-                  echo "<pre>";
-                    print_r($filtered_routes_with_curly_braces);
-                  echo "</pre>";
-                 die();
+                  $numericValues = array_filter(array:$user_route,callback:'is_numeric');
+                 if(count($numericValues)===1){
+                    //user route which has a number
+    $index_of_the_number_in_array=array_keys($numericValues)[0];
+    $all_route_with_parameters=array_filter(array:$mapped_routes,callback:function($q)use($index_of_the_number_in_array){
+      return str_starts_with(haystack:$q['path'][$index_of_the_number_in_array],needle:'{') && str_ends_with(haystack:$q['path'][$index_of_the_number_in_array],needle:'}');
+});
 
-                  //2 conditions if it starts with { and ends with } or else not
-                   $filter_with_curly_braces=array_filter(array:$this->routes,callback:function($q){
-                      return str_contains(haystack:$q['path'],needle:'{') && str_contains(haystack:$q['path'],needle:'}');
-                 });
-                  //Remove curly brace
-                  $without_curly_brace=array_map(array:$filter_with_curly_braces,callback:function($q){
-                       return  str_replace(['{', '}'], ['', ''], $q);
-                  });
-                     echo "<pre>";
-                    print_r($without_curly_brace);
-                  echo "</pre>";
-                 die();
+
+                 $filtered_routes=array_filter(array:$all_route_with_parameters,callback:function($q)use($user_route,$index_of_the_number_in_array){
+   
+   
+    if(count($q['path'])===count($user_route)){
+        return   $q['path'][0]===$user_route[0] && str_starts_with(haystack:$q['path'][$index_of_the_number_in_array],needle:'{') && str_ends_with(haystack:$q['path'][$index_of_the_number_in_array],needle:'}');
+    }
+        
+});
+    echo "<pre>";
+
+   print_r($filtered_routes);
+    echo "</pre>";
+     die();
+}else{
+    var_dump("It is not");
+}
+
+           
+
+
+                
                  if(count($filter_with_correct_columns)===1){
                    
                     
