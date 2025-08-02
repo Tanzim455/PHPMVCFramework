@@ -109,26 +109,21 @@ $controller_obj->$current_route_controller_method();
                 
 
                   $numericValues = array_filter(array:$user_route,callback:'is_numeric');
-                 if(count($numericValues)===1){
-                    //user route which has a number
-    $index_of_the_number_in_array=array_keys($numericValues)[0];
-    $all_route_with_parameters=array_filter(array:$mapped_routes,callback:function($q)use($index_of_the_number_in_array){
-      return str_starts_with(haystack:$q['path'][$index_of_the_number_in_array],needle:'{') && str_ends_with(haystack:$q['path'][$index_of_the_number_in_array],needle:'}');
-});
+                 $index_of_the_number_in_array = array_keys($numericValues)[0];
 
+    // Routes with a placeholder parameter (e.g., {id}) at the numeric position
+    $all_route_with_parameters = array_filter($mapped_routes, function($q) use ($index_of_the_number_in_array) {
+        return str_starts_with($q['path'][$index_of_the_number_in_array], '{') &&
+               str_ends_with($q['path'][$index_of_the_number_in_array], '}');
+    });
 
-                 $filtered_routes=array_filter(array:$all_route_with_parameters,callback:function($q)use($user_route,$index_of_the_number_in_array){
-   
-   
-    if(count($q['path'])===count($user_route)){
-        return   $q['path'][0]===$user_route[0] && str_starts_with(haystack:$q['path'][$index_of_the_number_in_array],needle:'{') && str_ends_with(haystack:$q['path'][$index_of_the_number_in_array],needle:'}');
-    }
-        
-});
-    echo "<pre>";
+    // Routes that match full path structure and start similarly
+    $filtered_routes = array_filter($all_route_with_parameters, function($q) use ($user_route, $index_of_the_number_in_array) {
+        return count($q['path']) === count($user_route) &&
+               $q['path'][0] === $user_route[0];
+    });
 
-   print_r($filtered_routes);
-    echo "</pre>";
+  
      
 }else{
       $filter_with_correct_columns=array_filter(array:$this->routes,callback:function($q){
@@ -146,33 +141,47 @@ $controller_obj->$current_route_controller_method();
         
                  if(count($mapped_routes)){
 
-                    echo "<pre>";
-                    print_r($mapped_routes);
-                    echo "</pre>";
-                    die();
-                    $path=explode(separator:"/",string:$filter_with_correct_columns[0]['path']);
-                   
-
-                    $common_elements=array_intersect($user_route,$path);
+                  
+                  
                     
-                    if(count($user_route)===count($common_elements) && count($path)===count($common_elements)){
+
+                  
+                   $filtered_routes_with_same_number_of_columns=array_filter(array:$mapped_routes,callback:function($q)use($user_route){
+                        return  count($q['path'])===count($user_route);
+                   });
+
+                  echo "<pre>";
+
+            
+
+                    $common_elements=array_filter(array:$filtered_routes_with_same_number_of_columns,callback:function($q)use($user_route){
+                        return  $q['path']===$user_route;
+                   });
+                    
+
+                    
+                    
+                    if(count($common_elements)){
                       
                         
-                         $all_route_info=reset($filter_with_correct_columns);
-                        
+                         $all_route_info=reset($common_elements);
+                         
+                         
                          if(class_exists(class:$all_route_info['controller']))
                          {
                            $reflection=new ReflectionClass(objectOrClass:$all_route_info['controller']);
-                          
-                            $controller_obj=new $all_route_info['controller'];
                             
+                           
+                            $controller_obj=new $all_route_info['controller'];
+                           
                          $method=trim($all_route_info['method']);
                        
                          
                             if($reflection->hasMethod($method)){
                                
                               
-                            
+                                 
+                                
                                 
                                 $controller_obj->$method();
                                
