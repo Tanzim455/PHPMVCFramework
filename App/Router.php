@@ -42,18 +42,16 @@ class Router {
     
     public function getRoutes(){
         
-       
+          //Parse the url that is the user route
           $user_route_path=parse_url(url:$_SERVER['REQUEST_URI']);
             
-          
+         // Splits the route path by '/' into an array after trimming leading/trailing whitespace
            $user_route=explode(separator:'/',string:trim($user_route_path['path']));
              
-            
+          
                 
                array_splice(array:$user_route,offset:0,length:2);
-                    var_dump($user_route);
-               
-               
+                   
                if(count($user_route)===1)
                {
                
@@ -61,9 +59,12 @@ class Router {
                     $user_route_method=array_filter(array:$this->routes,callback:function($q) use ($user_route){
             return $q['path']===$user_route[0];
         });
+
+                  
               
               if(count($user_route_method)){
 $user_route_method_data=reset($user_route_method);
+
              $controller_obj=new $user_route_method_data['controller'];
           if(class_exists(class:$user_route_method_data['controller'])){
                 $reflection=new ReflectionClass(objectOrClass:$controller_obj);
@@ -130,11 +131,9 @@ $controller_obj->$current_route_controller_method();
     echo "</pre>";
      die();
 }else{
-    var_dump("It is not");
-}
-
-           
-
+      $filter_with_correct_columns=array_filter(array:$this->routes,callback:function($q){
+                      return str_contains(haystack:$q['path'],needle:'/');
+                 });
 
                 
                  if(count($filter_with_correct_columns)===1){
@@ -175,6 +174,11 @@ $controller_obj->$current_route_controller_method();
                          }else{
                             echo "The class does not exist";
                          }
+}
+
+           
+                 
+                
                         
                         
                      
