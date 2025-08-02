@@ -86,7 +86,7 @@ $controller_obj->$current_route_controller_method();
                }else if(count($user_route)>1){
                
                
-                 
+                
                 
                 
                   $all_routes=array_filter(array:$this->routes,callback:function($q){
@@ -129,16 +129,27 @@ $controller_obj->$current_route_controller_method();
 
    print_r($filtered_routes);
     echo "</pre>";
-     die();
+     
 }else{
       $filter_with_correct_columns=array_filter(array:$this->routes,callback:function($q){
-                      return str_contains(haystack:$q['path'],needle:'/');
+                      return !str_contains(haystack:$q['path'],needle:'{') ||!str_contains(haystack:$q['path'],needle:'}');
                  });
+ $mapped_routes = array_map(array: $filter_with_correct_columns,callback:function ($q) {
+    return ['path' => explode("/", $q['path']),
+           'http_method'=>$q['http_method'],
+           'controller'=>$q['controller'],
+           'method'=>$q['method']
+];
+});
 
-                
-                 if(count($filter_with_correct_columns)===1){
-                   
-                    
+
+        
+                 if(count($mapped_routes)){
+
+                    echo "<pre>";
+                    print_r($mapped_routes);
+                    echo "</pre>";
+                    die();
                     $path=explode(separator:"/",string:$filter_with_correct_columns[0]['path']);
                    
 
