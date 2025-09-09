@@ -116,7 +116,10 @@ $controller_obj->$current_route_controller_method();
         return str_starts_with($q['path'][$index_of_the_number_in_array], '{') &&
                str_ends_with($q['path'][$index_of_the_number_in_array], '}');
     });
-
+    echo "<pre>";
+    print_r($all_route_with_parameters);
+    echo "</pre>";
+    die();
     // Routes that match full path structure and start similarly
     $filtered_routes = array_filter($all_route_with_parameters, function($q) use ($user_route, $index_of_the_number_in_array) {
         return count($q['path']) === count($user_route) &&
@@ -215,7 +218,7 @@ $controller_obj->$current_route_controller_method();
        
        
 
-        return $this->routes;      
+        
    
        
      
@@ -232,7 +235,7 @@ $controller_obj->$current_route_controller_method();
        
           
 
-}
+
 
          
 
