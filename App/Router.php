@@ -2,7 +2,10 @@
 declare (strict_types=1);
 namespace App;
 use App\Traits\View;
+use Exception;
 use ReflectionClass;
+use MyController;
+use ReflectionMethod;
 
 class Router {
     use View;
@@ -116,17 +119,51 @@ $controller_obj->$current_route_controller_method();
         return str_starts_with($q['path'][$index_of_the_number_in_array], '{') &&
                str_ends_with($q['path'][$index_of_the_number_in_array], '}');
     });
-    echo "<pre>";
-    print_r($all_route_with_parameters);
-    echo "</pre>";
-    die();
+   
     // Routes that match full path structure and start similarly
     $filtered_routes = array_filter($all_route_with_parameters, function($q) use ($user_route, $index_of_the_number_in_array) {
         return count($q['path']) === count($user_route) &&
                $q['path'][0] === $user_route[0];
     });
+    if(count($filtered_routes)===1)
+    {
+        $reset_filtered_routes=reset($filtered_routes);
 
-  
+        echo "<pre>";
+          print_r($reset_filtered_routes);
+         echo "</pre>";
+        //check if the 
+        
+        if(class_exists($reset_filtered_routes['controller']))
+        {
+            $reflection_post_class=new ReflectionClass($reset_filtered_routes['controller']);
+            
+            //Instantiate new class
+            $new_class_instantiation=new $reset_filtered_routes['controller'];
+          
+            if($reflection_post_class->hasMethod($reset_filtered_routes['method'])){
+                $reflection_method=new ReflectionMethod($reset_filtered_routes['controller'],$reset_filtered_routes['method']);
+             
+                $parameters=$reflection_post_class->getMethod($reset_filtered_routes['method'])->getParameters();
+                 if(!empty($parameters) && is_array($parameters) && count($parameters)===1)
+                 {
+                     
+                          $reflection_method->invokeArgs($new_class_instantiation,['value1']);
+ 
+                 }
+                die();
+            }else{
+                var_dump("It does not have that method");
+            }
+            die();
+        }else{
+            throw new Exception("Class does not exist");
+        }
+ 
+        die();
+        // $reflection_class=new ReflectionClass(objectOrClass:)
+    }
+   die();
      
 }else{
       $filter_with_correct_columns=array_filter(array:$this->routes,callback:function($q){

@@ -20,6 +20,10 @@ class PostController{
     public function create(){
         $this->views(view:'posts/create.php');
     }
+
+    public function show($id){
+        var_dump("show",$id);
+    }
 }
 
 
